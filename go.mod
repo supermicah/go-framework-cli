@@ -7,6 +7,7 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/urfave/cli/v2 v2.27.4
 	go.uber.org/zap v1.27.0
+	golang.org/x/mod v0.17.0
 	golang.org/x/text v0.18.0
 	gopkg.in/yaml.v2 v2.4.0
 )

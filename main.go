@@ -42,9 +42,9 @@ func main() {
 	})
 	app.Commands = []*cli.Command{
 		cmd.Version(VERSION),
-		//cmd.New(),
-		//cmd.Generate(),
-		//cmd.Remove(),
+		cmd.New(),
+		cmd.Generate(),
+		cmd.Remove(),
 	}
 
 	if err := app.Run(os.Args); err != nil {
