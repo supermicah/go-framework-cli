@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/supermicah/framework-cli/internal/utils"
+	"github.com/supermicah/go-framework-cli/internal/utils"
 	"golang.org/x/mod/modfile"
 )
 

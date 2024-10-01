@@ -1,4 +1,4 @@
-module github.com/supermicah/framework-cli
+module github.com/supermicah/go-framework-cli
 
 go 1.19
 

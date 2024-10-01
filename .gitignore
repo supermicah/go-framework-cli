@@ -31,4 +31,4 @@ go.work.sum
 # temp or test folder
 testdata
 tmp
-framework-cli
+go-framework-cli

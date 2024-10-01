@@ -11,7 +11,7 @@ import (
 {{$includeSequence := .Include.Sequence}}
 {{$treeTpl := eq .TplType "tree"}}
 
-{{with .Comment}}// {{.}}{{else}}// Defining the `{{$name}}` struct.{{end}}
+{{with .Comment}}// {{.}}{{else}}// {{$name}} Defining the `{{$name}}` struct.{{end}}
 type {{$name}} struct {
     {{- range .Fields}}{{$fieldName := .Name}}
 	{{$fieldName}} {{.Type}} `json:"{{.JSONTag}}"{{with .GormTag}} gorm:"{{.}}"{{end}}{{with .CustomTag}} {{raw .}}{{end}}`{{with .Comment}}// {{.}}{{end}}

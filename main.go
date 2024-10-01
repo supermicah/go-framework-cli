@@ -4,8 +4,8 @@ import (
 	"embed"
 	"os"
 
-	"github.com/supermicah/framework-cli/cmd"
-	"github.com/supermicah/framework-cli/internal/tfs"
+	"github.com/supermicah/go-framework-cli/cmd"
+	"github.com/supermicah/go-framework-cli/internal/tfs"
 	"github.com/urfave/cli/v2"
 	"go.uber.org/zap"
 )
@@ -33,7 +33,7 @@ func main() {
 	tfs.SetEFS(f)
 
 	app := cli.NewApp()
-	app.Name = "go-framework-cli"
+	app.Name = "go-go-framework-cli"
 	app.Version = VERSION
 	app.Usage = "A command line tool for Go framework."
 	app.Authors = append(app.Authors, &cli.Author{

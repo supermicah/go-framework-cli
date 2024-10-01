@@ -17,7 +17,7 @@ import (
 {{$includeStatus := .Include.Status}}
 {{$treeTpl := eq .TplType "tree"}}
 
-{{with .Comment}}// {{.}}{{else}}// Defining the `{{$name}}` business logic.{{end}}
+{{with .Comment}}// {{.}}{{else}}// {{$name}} Defining the `{{$name}}` business logic.{{end}}
 type {{$name}} struct {
 	Trans       *util.Trans
 	{{$name}}DAL *dal.{{$name}}

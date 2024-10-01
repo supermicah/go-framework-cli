@@ -1,8 +1,8 @@
-# framework-cli
+# go-framework-cli
 
 copy from https://github.com/gin-admin/gin-admin-cli
 
-# [FrameworkCli](https://github.com/supermicah/framework-cli) efficiency assistant
+# [FrameworkCli](https://github.com/supermicah/go-framework-cli) efficiency assistant
 
 > A gin-admin efficiency assistant that provides project initialization, code generation, greatly improves work efficiency, and quickly completes the development of business logic.
 
@@ -17,19 +17,19 @@ copy from https://github.com/gin-admin/gin-admin-cli
 ### Get and install
 
 ```bash
-go install github.com/supermicah/framework-cli@latest
+go install github.com/supermicah/go-framework-cli@latest
 ```
 
 ### Create a new project
 
 ```bash
-framework-cli new -d ~/go/src --name testapp --desc 'A test API service based on golang.' --pkg 'github.com/xxx/testapp'
+go-framework-cli new -d ~/go/src --name testapp --desc 'A test API service based on golang.' --pkg 'github.com/xxx/testapp'
 ```
 
 ### Quick generate a struct
 
 ```bash
-framework-cli gen -d ~/go/src/testapp -m SYS --structs Dictionary --structs-comment "Dictionaries management" --structs-router-prefix
+go-framework-cli gen -d ~/go/src/testapp -m SYS --structs Dictionary --structs-comment "Dictionaries management" --structs-router-prefix
 ```
 
 ### Use config file to generate struct
@@ -84,7 +84,7 @@ Using `Dictionary` as an example, the configuration file is as follows `dictiona
 ```
 
 ```bash
-./framework-cli gen -d ~/go/src/testapp -m SYS -c dictionary.yaml
+./go-framework-cli gen -d ~/go/src/testapp -m SYS -c dictionary.yaml
 ```
 
 ### Use `ant-design-pro-v5` template to generate struct and UI
@@ -222,13 +222,13 @@ Using `Dictionary` as an example, the configuration file is as follows `dictiona
 ```
 
 ```bash
-./framework-cli gen -d ~/go/src/testapp -m SYS -c parameter.yaml
+./go-framework-cli gen -d ~/go/src/testapp -m SYS -c parameter.yaml
 ```
 
 ### Remove a struct from the module
 
 ```bash
-framework-cli rm -d ~/go/src/testapp -m SYS -s Dictionary
+go-framework-cli rm -d ~/go/src/testapp -m SYS -s Dictionary
 ```
 
 ## Command help
@@ -237,10 +237,10 @@ framework-cli rm -d ~/go/src/testapp -m SYS -s Dictionary
 
 ```text
 NAME:
-   framework-cli new - Create a new project
+   go-framework-cli new - Create a new project
 
 USAGE:
-   framework-cli new [command options] [arguments...]
+   go-framework-cli new [command options] [arguments...]
 
 OPTIONS:
    --dir value, -d value  The directory to generate the project (default: current directory)
@@ -262,10 +262,10 @@ OPTIONS:
 
 ```text
 NAME:
-   framework-cli generate - Generate structs to the specified module, support config file
+   go-framework-cli generate - Generate structs to the specified module, support config file
 
 USAGE:
-   framework-cli generate [command options] [arguments...]
+   go-framework-cli generate [command options] [arguments...]
 
 OPTIONS:
    --dir value, -d value     The project directory to generate the struct
@@ -288,10 +288,10 @@ OPTIONS:
 
 ```text
 NAME:
-   framework-cli remove - Remove structs from the module
+   go-framework-cli remove - Remove structs from the module
 
 USAGE:
-   framework-cli remove [command options] [arguments...]
+   go-framework-cli remove [command options] [arguments...]
 
 OPTIONS:
    --dir value, -d value      The directory to remove the struct from

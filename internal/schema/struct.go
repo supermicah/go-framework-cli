@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/supermicah/framework-cli/internal/utils"
+	"github.com/supermicah/go-framework-cli/internal/utils"
 )
 
 type S struct {

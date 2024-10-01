@@ -3,7 +3,7 @@ package cmd
 import (
 	"strings"
 
-	"github.com/supermicah/framework-cli/internal/actions"
+	"github.com/supermicah/go-framework-cli/internal/actions"
 	"github.com/urfave/cli/v2"
 )
 

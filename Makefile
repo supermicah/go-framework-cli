@@ -2,7 +2,7 @@
 
 RELEASE_VERSION = v1.0.0
 
-APP 			= framework-cli
+APP 			= go-framework-cli
 BIN  			= ${APP}
 GIT_COUNT 		= $(shell git rev-list --all --count)
 GIT_HASH        = $(shell git rev-parse --short HEAD)

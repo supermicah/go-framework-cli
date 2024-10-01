@@ -11,7 +11,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/supermicah/framework-cli/internal/utils"
+	"github.com/supermicah/go-framework-cli/internal/utils"
 )
 
 func ModifyModuleMainFile(_ context.Context, args BasicArgs) ([]byte, error) {

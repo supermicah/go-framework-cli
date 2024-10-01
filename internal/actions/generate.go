@@ -6,10 +6,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/supermicah/framework-cli/internal/parser"
-	"github.com/supermicah/framework-cli/internal/schema"
-	"github.com/supermicah/framework-cli/internal/tfs"
-	"github.com/supermicah/framework-cli/internal/utils"
+	"github.com/supermicah/go-framework-cli/internal/parser"
+	"github.com/supermicah/go-framework-cli/internal/schema"
+	"github.com/supermicah/go-framework-cli/internal/tfs"
+	"github.com/supermicah/go-framework-cli/internal/utils"
 	"go.uber.org/zap"
 )
 

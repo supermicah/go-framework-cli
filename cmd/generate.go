@@ -4,9 +4,9 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/supermicah/framework-cli/internal/actions"
-	"github.com/supermicah/framework-cli/internal/schema"
-	"github.com/supermicah/framework-cli/internal/tfs"
+	"github.com/supermicah/go-framework-cli/internal/actions"
+	"github.com/supermicah/go-framework-cli/internal/schema"
+	"github.com/supermicah/go-framework-cli/internal/tfs"
 	"github.com/urfave/cli/v2"
 )
 
