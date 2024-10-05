@@ -27,7 +27,7 @@ func (a {{$name}}) TableName() string {
 // {{$name}}QueryParam Defining the query parameters for the `{{$name}}` struct.
 type {{$name}}QueryParam struct {
 	util.PaginationParam
-	{{if $treeTpl}}InIDs []string `form:"-"`{{- end}}
+	{{if $treeTpl}}InIDs []int64 `form:"-"`{{- end}}
 	{{- range .Fields}}{{$fieldName := .Name}}{{$type :=.Type}}
 	{{- with .Query}}
 	{{.Name}} {{$type}} `form:"{{with .FormTag}}{{.}}{{else}}-{{end}}"{{with .BindingTag}} binding:"{{.}}"{{end}}{{with .CustomTag}} {{raw .}}{{end}}`{{with .Comment}}// {{.}}{{end}}
@@ -80,19 +80,20 @@ func (a {{plural .Name}}) ToMap() map[string]*{{$name}} {
 	return m
 }
 
-func (a {{plural .Name}}) SplitParentIDs() []string {
-	parentIDs := make([]string, 0, len(a))
-	idMapper := make(map[string]struct{})
+func (a {{plural .Name}}) SplitParentIDs() []int64 {
+	parentIDs := make([]int64, 0, len(a))
+	idMapper := make(map[int64]struct{})
 	for _, item := range a {
 		if _, ok := idMapper[item.ID]; ok {
 			continue
 		}
 		idMapper[item.ID] = struct{}{}
 		if pp := item.ParentPath; pp != "" {
-			for _, pid := range strings.Split(pp, util.TreePathDelimiter) {
-				if pid == "" {
+			for _, parentID := range strings.Split(pp, util.TreePathDelimiter) {
+				if parentID == "" {
 					continue
 				}
+				pid = util.IDToInt64(parentID)
 				if _, ok := idMapper[pid]; ok {
 					continue
 				}
@@ -108,7 +109,7 @@ func (a {{plural .Name}}) ToTree() {{plural .Name}} {
 	var list {{plural .Name}}
 	m := a.ToMap()
 	for _, item := range a {
-		if item.ParentID == "" {
+		if item.ParentID == 0 {
 			list = append(list, item)
 			continue
 		}

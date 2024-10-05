@@ -67,7 +67,7 @@ func (a *{{$name}}) Query(c *gin.Context) {
 // @Router /api/v1/{{if .FillRouterPrefix}}{{lower .Module}}/{{end}}{{lowerHyphensPlural .Name}}/{id} [get]
 func (a *{{$name}}) Get(c *gin.Context) {
 	ctx := c.Request.Context()
-	item, err := a.{{$name}}BIZ.Get(ctx, c.Param("id"))
+	item, err := a.{{$name}}BIZ.Get(ctx, util.ParseFormInt64(c, "id"))
 	if err != nil {
 		util.ResError(c, err)
 		return
@@ -145,7 +145,7 @@ func (a *{{$name}}) Update(c *gin.Context) {
 // @Router /api/v1/{{if .FillRouterPrefix}}{{lower .Module}}/{{end}}{{lowerHyphensPlural .Name}}/{id} [delete]
 func (a *{{$name}}) Delete(c *gin.Context) {
 	ctx := c.Request.Context()
-	err := a.{{$name}}BIZ.Delete(ctx, c.Param("id"))
+	err := a.{{$name}}BIZ.Delete(ctx, util.ParseFormInt64(c, "id"))
 	if err != nil {
 		util.ResError(c, err)
 		return

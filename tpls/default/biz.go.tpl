@@ -54,7 +54,7 @@ func (a *{{$name}}) appendChildren(ctx context.Context, data schema.{{plural .Na
 		return data, nil
 	}
 
-	existsInData := func(id string) bool {
+	existsInData := func(id int64) bool {
 		for _, item := range data {
 			if item.ID == id {
 				return true
@@ -65,7 +65,7 @@ func (a *{{$name}}) appendChildren(ctx context.Context, data schema.{{plural .Na
 
 	for _, item := range data {
 		childResult, err := a.{{$name}}DAL.Query(ctx, schema.{{$name}}QueryParam{
-			ParentPathPrefix: item.ParentPath + item.ID + util.TreePathDelimiter,
+			ParentPathPrefix: item.ParentPath + util.IDToString(item.ID) + util.TreePathDelimiter,
 		})
 		if err != nil {
 			return nil, err
@@ -100,7 +100,7 @@ func (a *{{$name}}) appendChildren(ctx context.Context, data schema.{{plural .Na
 {{- end}}
 
 // Get the specified {{lowerSpace .Name}} from the data access object.
-func (a *{{$name}}) Get(ctx context.Context, id string) (*schema.{{$name}}, error) {
+func (a *{{$name}}) Get(ctx context.Context, id int64) (*schema.{{$name}}, error) {
 	{{lowerCamel $name}}, err := a.{{$name}}DAL.Get(ctx, id)
 	if err != nil {
 		return nil, err
@@ -113,7 +113,6 @@ func (a *{{$name}}) Get(ctx context.Context, id string) (*schema.{{$name}}, erro
 // Create a new {{lowerSpace .Name}} in the data access object.
 func (a *{{$name}}) Create(ctx context.Context, formItem *schema.{{$name}}Form) (*schema.{{$name}}, error) {
 	{{lowerCamel $name}} := &schema.{{$name}}{
-		{{if $includeID}}ID:          util.NewXID(),{{end}}
 		{{if $includeCreatedAt}}CreatedAt:   time.Now(),{{end}}
 	}
 
@@ -136,7 +135,7 @@ func (a *{{$name}}) Create(ctx context.Context, formItem *schema.{{$name}}Form) 
 	{{- end}}
 
 	{{- if $treeTpl}}
-	if parentID := formItem.ParentID; parentID != "" {
+	if parentID := formItem.ParentID; parentID != 0 {
 		parent, err := a.{{$name}}DAL.Get(ctx, parentID)
 		if err != nil {
 			return nil, err
@@ -164,7 +163,7 @@ func (a *{{$name}}) Create(ctx context.Context, formItem *schema.{{$name}}Form) 
 }
 
 // Update the specified {{lowerSpace .Name}} in the data access object.
-func (a *{{$name}}) Update(ctx context.Context, id string, formItem *schema.{{$name}}Form) error {
+func (a *{{$name}}) Update(ctx context.Context, id int64, formItem *schema.{{$name}}Form) error {
 	{{lowerCamel $name}}, err := a.{{$name}}DAL.Get(ctx, id)
 	if err != nil {
 		return err
@@ -201,7 +200,7 @@ func (a *{{$name}}) Update(ctx context.Context, id string, formItem *schema.{{$n
 	{{- end}}
 	var childData schema.{{plural .Name}}
 	if {{lowerCamel $name}}.ParentID != formItem.ParentID {
-		if parentID := formItem.ParentID; parentID != "" {
+		if parentID := formItem.ParentID; parentID != 0 {
 			parent, err := a.{{$name}}DAL.Get(ctx, parentID)
 			if err != nil {
 				return err
@@ -261,7 +260,7 @@ func (a *{{$name}}) Update(ctx context.Context, id string, formItem *schema.{{$n
 }
 
 // Delete the specified {{lowerSpace .Name}} from the data access object.
-func (a *{{$name}}) Delete(ctx context.Context, id string) error {
+func (a *{{$name}}) Delete(ctx context.Context, id int64) error {
 	{{- if $treeTpl}}
 	{{lowerCamel $name}}, err := a.{{$name}}DAL.Get(ctx, id)
 	if err != nil {
