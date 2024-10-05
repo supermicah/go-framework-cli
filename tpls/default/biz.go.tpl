@@ -17,7 +17,7 @@ import (
 {{$includeStatus := .Include.Status}}
 {{$treeTpl := eq .TplType "tree"}}
 
-{{with .Comment}}// {{.}}{{else}}// {{$name}} Defining the `{{$name}}` business logic.{{end}}
+{{with .Comment}}// {{$name}} {{.}}{{else}}// {{$name}} Defining the `{{$name}}` business logic.{{end}}
 type {{$name}} struct {
 	Trans       *util.Trans
 	{{$name}}DAL *dal.{{$name}}
@@ -142,7 +142,7 @@ func (a *{{$name}}) Create(ctx context.Context, formItem *schema.{{$name}}Form) 
 		} else if parent == nil {
 			return nil, errors.NotFound("", "Parent not found")
 		}
-		{{lowerCamel $name}}.ParentPath = parent.ParentPath + parent.ID + util.TreePathDelimiter
+		{{lowerCamel $name}}.ParentPath = parent.ParentPath + util.IDToString(parent.ID) + util.TreePathDelimiter
 	}
 	{{- end}}
 
@@ -207,13 +207,13 @@ func (a *{{$name}}) Update(ctx context.Context, id int64, formItem *schema.{{$na
 			} else if parent == nil {
 				return errors.NotFound("", "Parent not found")
 			}
-			{{lowerCamel $name}}.ParentPath = parent.ParentPath + parent.ID + util.TreePathDelimiter
+			{{lowerCamel $name}}.ParentPath = parent.ParentPath + util.IDToString(parent.ID) + util.TreePathDelimiter
 		} else {
 			{{lowerCamel $name}}.ParentPath = ""
 		}
 
 		childResult, err := a.{{$name}}DAL.Query(ctx, schema.{{$name}}QueryParam{
-			ParentPathPrefix: oldParentPath + {{lowerCamel $name}}.ID + util.TreePathDelimiter,
+			ParentPathPrefix: oldParentPath + util.IDToString({{lowerCamel $name}}.ID) + util.TreePathDelimiter,
 		}, schema.{{$name}}QueryOptions{
 			QueryOptions: util.QueryOptions{
 				SelectFields: []string{"id", "parent_path"},
@@ -239,7 +239,7 @@ func (a *{{$name}}) Update(ctx context.Context, id int64, formItem *schema.{{$na
 		{{- if $treeTpl}}
 		{{- if $includeStatus}}
 		if oldStatus != formItem.Status {
-			opath := oldParentPath + {{lowerCamel $name}}.ID + util.TreePathDelimiter
+			opath := oldParentPath + util.IDToString({{lowerCamel $name}}.ID) + util.TreePathDelimiter
 			if err := a.{{$name}}DAL.UpdateStatusByParentPath(ctx, opath, formItem.Status); err != nil {
 				return err
 			}
@@ -247,8 +247,8 @@ func (a *{{$name}}) Update(ctx context.Context, id int64, formItem *schema.{{$na
 		{{- end}}
 
 		for _, child := range childData {
-			opath := oldParentPath + {{lowerCamel $name}}.ID + util.TreePathDelimiter
-			npath := {{lowerCamel $name}}.ParentPath + {{lowerCamel $name}}.ID + util.TreePathDelimiter
+			opath := oldParentPath + util.IDToString({{lowerCamel $name}}.ID) + util.TreePathDelimiter
+			npath := {{lowerCamel $name}}.ParentPath + util.IDToString({{lowerCamel $name}}.ID) + util.TreePathDelimiter
 			err := a.{{$name}}DAL.UpdateParentPath(ctx, child.ID, strings.Replace(child.ParentPath, opath, npath, 1))
 			if err != nil {
 				return err
@@ -270,7 +270,7 @@ func (a *{{$name}}) Delete(ctx context.Context, id int64) error {
 	}
 
 	childResult, err := a.{{$name}}DAL.Query(ctx, schema.{{$name}}QueryParam{
-		ParentPathPrefix: {{lowerCamel $name}}.ParentPath + {{lowerCamel $name}}.ID + util.TreePathDelimiter,
+		ParentPathPrefix: {{lowerCamel $name}}.ParentPath + util.IDToString({{lowerCamel $name}}.ID) + util.TreePathDelimiter,
 		}, schema.{{$name}}QueryOptions{
 		QueryOptions: util.QueryOptions{
 			SelectFields: []string{"id"},

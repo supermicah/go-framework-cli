@@ -11,7 +11,7 @@ import (
 {{$includeSequence := .Include.Sequence}}
 {{$treeTpl := eq .TplType "tree"}}
 
-{{with .Comment}}// {{.}}{{else}}// {{$name}} Defining the `{{$name}}` struct.{{end}}
+{{with .Comment}}// {{$name}} {{.}}{{else}}// {{$name}} Defining the `{{$name}}` struct.{{end}}
 type {{$name}} struct {
     {{- range .Fields}}{{$fieldName := .Name}}
 	{{$fieldName}} {{.Type}} `json:"{{.JSONTag}}"{{with .GormTag}} gorm:"{{.}}"{{end}}{{with .CustomTag}} {{raw .}}{{end}}`{{with .Comment}}// {{.}}{{end}}
@@ -72,8 +72,8 @@ func (a {{plural .Name}}) Swap(i, j int) {
 {{- end}}
 
 {{- if $treeTpl}}
-func (a {{plural .Name}}) ToMap() map[string]*{{$name}} {
-	m := make(map[string]*{{$name}})
+func (a {{plural .Name}}) ToMap() map[int64]*{{$name}} {
+	m := make(map[int64]*{{$name}})
 	for _, item := range a {
 		m[item.ID] = item
 	}
@@ -93,7 +93,7 @@ func (a {{plural .Name}}) SplitParentIDs() []int64 {
 				if parentID == "" {
 					continue
 				}
-				pid = util.IDToInt64(parentID)
+				pid := util.IDToInt64(parentID)
 				if _, ok := idMapper[pid]; ok {
 					continue
 				}

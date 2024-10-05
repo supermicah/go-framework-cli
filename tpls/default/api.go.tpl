@@ -9,7 +9,7 @@ import (
 
 {{$name := .Name}}
 
-{{with .Comment}}// {{.}}{{else}}// Defining the `{{$name}}` api.{{end}}
+{{with .Comment}}// {{$name}} {{.}}{{else}}// Defining the `{{$name}}` api.{{end}}
 type {{$name}} struct {
 	{{$name}}BIZ *biz.{{$name}}
 }
@@ -126,7 +126,7 @@ func (a *{{$name}}) Update(c *gin.Context) {
 		return
 	}
 
-	err := a.{{$name}}BIZ.Update(ctx, c.Param("id"), item)
+	err := a.{{$name}}BIZ.Update(ctx, util.ParseFormInt64(c, "id"), item)
 	if err != nil {
 		util.ResError(c, err)
 		return

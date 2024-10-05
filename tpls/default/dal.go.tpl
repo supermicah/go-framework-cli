@@ -19,7 +19,7 @@ func Get{{$name}}DB(ctx context.Context, defDB *gorm.DB) *gorm.DB {
 	return util.GetDB(ctx, defDB).Model(new(schema.{{$name}}))
 }
 
-{{with .Comment}}// {{.}}{{else}}// {{$name}} Defining the `{{$name}}` data access object.{{end}}
+{{with .Comment}}// {{$name}} {{.}}{{else}}// {{$name}} Defining the `{{$name}}` data access object.{{end}}
 type {{$name}} struct {
 	DB *gorm.DB
 }
@@ -136,7 +136,7 @@ func (a *{{$name}}) Delete(ctx context.Context, id int64) error {
 
 {{- if $treeTpl}}
 // UpdateParentPath Updates the parent path of the specified {{lowerSpace .Name}}.
-func (a *{{$name}}) UpdateParentPath(ctx context.Context, id, parentPath string) error {
+func (a *{{$name}}) UpdateParentPath(ctx context.Context, id int64, parentPath string) error {
 	result := Get{{$name}}DB(ctx, a.DB).Where("id=?", id).Update("parent_path", parentPath)
 	return errors.WithStack(result.Error)
 }
