@@ -4,10 +4,9 @@ import (
 	"bytes"
 	"strings"
 
-	"golang.org/x/text/language"
-
 	"github.com/jinzhu/inflection"
 	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 var commonInitialismSlice = []string{"API", "ASCII", "CPU", "CSS", "DNS", "EOF", "GUID", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "LHS", "QPS", "RAM", "RHS", "RPC", "SLA", "SMTP", "SSH", "TLS", "TTL", "UID", "UI", "UUID", "URI", "URL", "UTF8", "VM", "XML", "XSRF", "XSS"}
@@ -39,8 +38,8 @@ func ToLowerUnderlinedNamer(name string) string {
 	)
 
 	for i, v := range value[:len(value)-1] {
-		nextCase = bool(value[i+1] >= 'A' && value[i+1] <= 'Z')
-		nextNumber = bool(value[i+1] >= '0' && value[i+1] <= '9')
+		nextCase = value[i+1] >= 'A' && value[i+1] <= 'Z'
+		nextNumber = value[i+1] >= '0' && value[i+1] <= '9'
 
 		if i > 0 {
 			if currCase == upper {
