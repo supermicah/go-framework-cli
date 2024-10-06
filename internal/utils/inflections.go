@@ -22,9 +22,9 @@ func init() {
 	}
 	commonInitialismSliceReplacer = strings.NewReplacer(commonInitialismSliceForReplacer...)
 }
-
 func ToLowerUnderlinedNamer(name string) string {
 	const (
+		lower = false
 		upper = true
 	)
 
@@ -33,18 +33,18 @@ func ToLowerUnderlinedNamer(name string) string {
 	}
 
 	var (
-		value                                                                = commonInitialismSliceReplacer.Replace(name)
-		buf                                                                  = bytes.NewBufferString("")
-		lastCaseIsUpper, currCaseIsUpper, nextCaseIsUpper, nextNumberIsUpper bool
+		value                                    = commonInitialismSliceReplacer.Replace(name)
+		buf                                      = bytes.NewBufferString("")
+		lastCase, currCase, nextCase, nextNumber bool
 	)
 
 	for i, v := range value[:len(value)-1] {
-		nextCaseIsUpper = value[i+1] >= 'A' && value[i+1] <= 'Z'
-		nextNumberIsUpper = value[i+1] >= '0' && value[i+1] <= '9'
+		nextCase = bool(value[i+1] >= 'A' && value[i+1] <= 'Z')
+		nextNumber = bool(value[i+1] >= '0' && value[i+1] <= '9')
 
 		if i > 0 {
-			if currCaseIsUpper {
-				if lastCaseIsUpper && (nextCaseIsUpper || nextNumberIsUpper) {
+			if currCase == upper {
+				if lastCase == upper && (nextCase == upper || nextNumber == upper) {
 					buf.WriteRune(v)
 				} else {
 					if value[i-1] != '_' && value[i+1] != '_' {
@@ -54,16 +54,16 @@ func ToLowerUnderlinedNamer(name string) string {
 				}
 			} else {
 				buf.WriteRune(v)
-				if i == len(value)-2 && (nextCaseIsUpper && !nextNumberIsUpper) {
+				if i == len(value)-2 && (nextCase == upper && nextNumber == lower) {
 					buf.WriteRune('_')
 				}
 			}
 		} else {
-			currCaseIsUpper = upper
+			currCase = upper
 			buf.WriteRune(v)
 		}
-		lastCaseIsUpper = currCaseIsUpper
-		currCaseIsUpper = nextNumberIsUpper
+		lastCase = currCase
+		currCase = nextCase
 	}
 
 	buf.WriteByte(value[len(value)-1])
