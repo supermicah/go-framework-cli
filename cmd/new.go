@@ -42,8 +42,8 @@ func New() *cli.Command {
 			},
 			&cli.StringFlag{
 				Name:  "git-url",
-				Usage: "Use git repository to initialize the project (default: https://github.com/supermicah/go-framework-admin.git)",
-				Value: "https://github.com/supermicah/go-framework-admin.git",
+				Usage: "Use git repository to initialize the project (default: https://github.com/supermicah/dionysus-admin.git)",
+				Value: "https://github.com/supermicah/dionysus-admin.git",
 			},
 			&cli.StringFlag{
 				Name:  "git-branch",

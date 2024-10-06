@@ -1,0 +1,47 @@
+# use command like [gin-admin-cli gen -d . -m SOME_MODULE --structs SomeTable --fe-dir ./frontend -c ./configs/schema/some_table.yaml]
+- name: Dictionary
+  module: SYS
+  comment: Dictionaries management
+  disable_pagination: true
+  fill_gorm_commit: true
+  fill_router_prefix: true # ex) GET /api/some_module/some_tables/:id
+  force_write: true # overwrite even if exist current file
+  generate_fe: false # generate react component by fe_mapping
+  disable_default_fields: false # id, created_at, updated_at columns
+  tpl_type: tree # crud/tree
+  fields:
+    - name: Code
+      type: string
+      comment: Code of dictionary (unique for same parent)
+      gorm_tag: "size:32;"
+      form:
+        binding_tag: "required,max=32"
+    - name: Name
+      type: string
+      comment: Display name of dictionary
+      gorm_tag: "size:128;index"
+      query:
+        name: LikeName
+        in_query: true
+        form_tag: name
+        op: LIKE
+      form:
+        binding_tag: "required,max=128"
+    - name: Description
+      type: string
+      comment: Details about dictionary
+      gorm_tag: "size:1024"
+      form: {}
+    - name: Sequence
+      type: int
+      comment: Sequence for sorting
+      gorm_tag: "index;"
+      order: DESC
+      form: {}
+    - name: Status
+      type: string
+      comment: Status of dictionary (disabled, enabled)
+      gorm_tag: "size:20;index"
+      query: {}
+      form:
+        binding_tag: "required,oneof=disabled enabled"
