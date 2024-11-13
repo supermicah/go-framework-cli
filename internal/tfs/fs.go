@@ -9,7 +9,7 @@ import (
 	"github.com/supermicah/go-framework-cli/internal/utils"
 )
 
-var Ins FS = NewEmbedFS()
+var Ins = NewEmbedFS()
 
 func SetIns(ins FS) {
 	Ins = ins

@@ -4,10 +4,11 @@ import (
 	"errors"
 	"strings"
 
+	"github.com/urfave/cli/v2"
+
 	"github.com/supermicah/go-framework-cli/internal/actions"
 	"github.com/supermicah/go-framework-cli/internal/schema"
 	"github.com/supermicah/go-framework-cli/internal/tfs"
-	"github.com/urfave/cli/v2"
 )
 
 // Generate returns the gen command.

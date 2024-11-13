@@ -3,8 +3,9 @@ package cmd
 import (
 	"strings"
 
-	"github.com/supermicah/go-framework-cli/internal/actions"
 	"github.com/urfave/cli/v2"
+
+	"github.com/supermicah/go-framework-cli/internal/actions"
 )
 
 // Remove returns the remove command.

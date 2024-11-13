@@ -9,12 +9,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/supermicah/go-framework-cli/internal/utils"
 	"go.uber.org/zap"
+
+	"github.com/supermicah/go-framework-cli/internal/utils"
 )
 
 const (
-	defaultGitURL = "https://github.com/supermicah/dionysus-admin.git\n"
+	defaultGitURL = "https://github.com/supermicah/go-framework-admin.git\n"
 )
 
 func New(cfg NewConfig) *NewAction {

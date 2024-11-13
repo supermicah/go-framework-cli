@@ -5,8 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/supermicah/go-framework-cli/internal/utils"
 	"golang.org/x/mod/modfile"
+
+	"github.com/supermicah/go-framework-cli/internal/utils"
 )
 
 const (

@@ -3,8 +3,9 @@ package cmd
 import (
 	"context"
 
-	"github.com/supermicah/go-framework-cli/internal/actions"
 	"github.com/urfave/cli/v2"
+
+	"github.com/supermicah/go-framework-cli/internal/actions"
 )
 
 // New returns the new project command.
@@ -42,8 +43,8 @@ func New() *cli.Command {
 			},
 			&cli.StringFlag{
 				Name:  "git-url",
-				Usage: "Use git repository to initialize the project (default: https://github.com/supermicah/dionysus-admin.git)",
-				Value: "https://github.com/supermicah/dionysus-admin.git",
+				Usage: "Use git repository to initialize the project (default: https://github.com/supermicah/go-framework-admin.git)",
+				Value: "https://github.com/supermicah/go-framework-admin.git",
 			},
 			&cli.StringFlag{
 				Name:  "git-branch",
