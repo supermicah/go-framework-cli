@@ -23,7 +23,7 @@ go install github.com/supermicah/go-framework-cli@latest
 ### Create a new project
 
 ```bash
-go-framework-cli new -d ~/go/src --name testapp --desc 'A test API service based on golang.' --pkg 'github.com/xxx/testapp'
+go-framework-cli new -d ~/go/src --name testapp --app-name testapp --desc 'A test API service based on golang.' --pkg 'github.com/xxx/testapp'
 ```
 
 ### Quick generate a struct
