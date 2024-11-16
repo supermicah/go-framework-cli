@@ -89,16 +89,20 @@ func (a {{plural .Name}}) SplitParentIDs() []int64 {
 		}
 		idMapper[item.ID] = struct{}{}
 		if pp := item.ParentPath; pp != "" {
-			for _, parentID := range strings.Split(pp, util.TreePathDelimiter) {
-				if parentID == "" {
+			for _, pid := range strings.Split(pp, util.TreePathDelimiter) {
+				if pid == "" {
 					continue
 				}
-				pid := util.IDToInt64(parentID)
-				if _, ok := idMapper[pid]; ok {
+				parentID, err := strconv.ParseInt(pid, 10, 64)
+                if err != nil {
+                    logging.Context(context.Background()).Error("Failed to parse pid value", zap.Error(err), zap.String("pid", pid))
+                    continue
+                }
+				if _, ok := idMapper[parentID]; ok {
 					continue
 				}
-				parentIDs = append(parentIDs, pid)
-				idMapper[pid] = struct{}{}
+				parentIDs = append(parentIDs, parentID)
+				idMapper[parentID] = struct{}{}
 			}
 		}
 	}

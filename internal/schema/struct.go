@@ -46,7 +46,7 @@ func (a *S) Format() *S {
 		fields = append(fields, &Field{
 			Name:    "ID",
 			Type:    "int64",
-			GormTag: "size:20;primaryKey;autoIncrement;",
+			GormTag: "size:64;primaryKey;autoIncrement;",
 			Comment: "Unique ID",
 		})
 		fields = append(fields, a.Fields...)
@@ -55,7 +55,7 @@ func (a *S) Format() *S {
 			fields = append(fields, &Field{
 				Name:    "ParentID",
 				Type:    "int64",
-				GormTag: "size:20;index;",
+				GormTag: "size:64;index;",
 				Comment: "Parent ID",
 				Query:   &FieldQuery{},
 				Form:    &FieldForm{},
