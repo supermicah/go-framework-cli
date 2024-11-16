@@ -13,7 +13,7 @@ type {{$name}}ModalProps = {
   onCancel: () => void;
   visible: boolean;
   title: string;
-  id?: number;
+  id?: string;
 };
 
 const {{$name}}Modal: React.FC<{{$name}}ModalProps> = (props: {{$name}}ModalProps) => {

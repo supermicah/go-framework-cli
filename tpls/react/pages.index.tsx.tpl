@@ -22,7 +22,7 @@ interface Action {
 interface State {
   visible: boolean;
   title: string;
-  id?: number;
+  id?: string;
 }
 
 const {{$name}}: React.FC = () => {

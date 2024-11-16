@@ -29,6 +29,16 @@ var FuncMap = template.FuncMap{
 		}
 		return "string"
 	},
+	"convGoTypeToJSType": func(goType string) string {
+		if goType == "int64" {
+			return "string"
+		} else if strings.Contains(goType, "int") || strings.Contains(goType, "float") {
+			return "number"
+		} else if goType == "bool" {
+			return "boolean"
+		}
+		return "string"
+	},
 }
 
 func tplConvToIfCond(t string) template.HTML {

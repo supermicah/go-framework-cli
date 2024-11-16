@@ -1,5 +1,5 @@
 {{$includeStatus := .Include.Status}}
-declare namespace API {
+declare namespace GoAPI {
   {{with .Comment}}// {{.}}{{end}}
   type {{.Name}} = {
     {{- range .Fields}}{{$fieldName := .Name}}
