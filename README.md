@@ -304,8 +304,26 @@ OPTIONS:
    --help, -h                 show help
 ```
 
+```shell
+
+
+# golang admin config run:
+# project arg: 
+start -c local
+
+# golang cli config new:
+# project arg:
+new -d ~/Local/Project/Golang/ --name dionysus-admin --app-name dionysus-admin --desc 'A test API service based on golang.' --pkg 'github.com/supermicah/dionysus-admin' --fe-dir ~/Local/Project/React/ --fe-name dionysus-web
+
+# golang cli config gen:
+# project arg:
+new -d ~/Local/Project/Golang/ --name dionysus-admin --app-name dionysus-admin --desc 'A test API service based on golang.' --pkg 'github.com/supermicah/dionysus-admin' --fe-dir ~/Local/Project/React/ --fe-name dionysus-web
+
+gen -d ~/Local/Project/Golang/dionysus-admin  -m BOOK --structs Dictionary --structs-comment "management dict for BOOK" --fe-dir ~/Local/Project/React/dionysus-web -c ~/Downloads/Dictionary.yaml
+```
+
 ## MIT License
 
 ```text
-Copyright (c) 2023 Lyric
+Copyright (c) 2024 micah
 ```

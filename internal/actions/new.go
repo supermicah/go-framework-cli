@@ -265,13 +265,43 @@ func (a *NewAction) generateFE(_ context.Context) error {
 		return err
 	}
 
-	cleanFiles := []string{".git", "LICENSE", "README.md", "demo.png"}
+	cleanFiles := []string{".idea", ".git", "LICENSE", "README.md", "demo.png"}
 	for _, file := range cleanFiles {
 		if err := os.RemoveAll(filepath.Join(feDir, file)); err != nil {
 			return err
 		}
 	}
+	projectDir := a.cfg.FeDir
+	feName := a.cfg.FeName
+	err = filepath.WalkDir(projectDir, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if d.IsDir() {
+			return nil
+		}
 
+		info, err := d.Info()
+		if err != nil {
+			return err
+		}
+
+		name := d.Name()
+		if name == "service-worker.js" {
+			f, err := os.ReadFile(path)
+			if err != nil {
+				return err
+			}
+
+			f = []byte(strings.ReplaceAll(string(f), "go-framework-admin", feName))
+			return os.WriteFile(path, f, info.Mode())
+		}
+
+		return nil
+	})
+	if err != nil {
+		return err
+	}
 	err = utils.WriteFile(filepath.Join(feDir, "README.md"), []byte(a.getFeReadme()))
 	if err != nil {
 		return err
