@@ -1,10 +1,12 @@
 {{- $name := .Name}}
 {{- $lowerPluralName := lowerHyphensPlural .Name}}
+{{- $lowerModule := lower .Module}}
+{{- $lowerName := lower .Name}}
 // @ts-ignore
 /* eslint-disable */
 import { request } from 'umi';
 import {responseConvert} from "@/services/response-convert";
-import {convert{{$name}}JSRequest2Go, convert{{$name}}GoResponse2JS} from "@/services/system/convert/convert{{$name}}";
+import {convert{{$name}}JSRequest2Go, convert{{$name}}GoResponse2JS} from "@/services/{{$lowerModule}}/convert/{{$lowerName}}";
 
 /** Query list GET /api/v1/{{$lowerPluralName}} */
 export async function fetch{{$name}}(params: API.PaginationParam, options?: { [key: string]: any }) {
@@ -24,7 +26,7 @@ export async function fetch{{$name}}(params: API.PaginationParam, options?: { [k
 export async function add{{$name}}(body: API.{{$name}}, options?: { [key: string]: any }) {
     let response = request<API.ResponseResult<API.{{$name}}>>('/api/v1/{{$lowerPluralName}}', {
         method: 'POST',
-        data: body,
+        data: convert{{$name}}JSRequest2Go(body),
         ...(options || {}),
     });
     return responseConvert(response, convert{{$name}}GoResponse2JS);
@@ -43,7 +45,7 @@ export async function get{{$name}}(id: string, options?: { [key: string]: any })
 export async function update{{$name}}(id: string, body: API.{{$name}}, options?: { [key: string]: any }) {
     let response = request<API.ResponseResult<any>>(`/api/v1/{{$lowerPluralName}}/${id}`, {
         method: 'PUT',
-        data: body,
+        data: convert{{$name}}JSRequest2Go(body),
         ...(options || {}),
     });
     return responseConvert(response, convert{{$name}}GoResponse2JS);
