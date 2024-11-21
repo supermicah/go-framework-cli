@@ -3,6 +3,7 @@
 {{- $statusEnabledText := .Extra.StatusEnabledText}}
 {{- $statusDisabledText :=.Extra.StatusDisabledText}}
 import React, { useEffect, useRef } from 'react';
+import { useIntl } from 'umi';
 import { message{{if .Extra.FormAntdImport}}, {{.Extra.FormAntdImport}}{{end}} } from 'antd';
 import { ModalForm, ProFormText{{if .Extra.FormProComponentsImport}}, {{.Extra.FormProComponentsImport}}{{end}}} from '@ant-design/pro-components';
 import type { ProFormInstance } from '@ant-design/pro-components';
@@ -18,6 +19,7 @@ type {{$name}}ModalProps = {
 
 const {{$name}}Modal: React.FC<{{$name}}ModalProps> = (props: {{$name}}ModalProps) => {
   const formRef = useRef<ProFormInstance<API.{{$name}}>>();
+  const intl = useIntl();
 
   useEffect(() => {
     if (!props.visible) {

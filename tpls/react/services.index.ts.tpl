@@ -1,5 +1,5 @@
 {{- $name := .Name}}
-{{- $lowerPluralName := lowerHyphensPlural .Name}}
+{{- $lowerPluralName := lowerHyphensPlural .Extra.ImportService}}
 {{- $lowerModule := lower .Module}}
 {{- $lowerName := lower .Name}}
 // @ts-ignore
