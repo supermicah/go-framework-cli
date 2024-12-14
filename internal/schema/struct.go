@@ -48,6 +48,11 @@ func (a *S) Format() *S {
 			Type:    "int64",
 			GormTag: "size:64;primaryKey;autoIncrement;",
 			Comment: "Unique ID",
+			Query:   &FieldQuery{},
+			Extra: map[string]interface{}{
+				"Label":       "ID",
+				"ChineseName": "ID",
+			},
 		})
 		fields = append(fields, a.Fields...)
 
@@ -85,12 +90,22 @@ func (a *S) Format() *S {
 			GormTag: "index;",
 			Comment: "Create time",
 			Order:   "DESC",
+			Query:   &FieldQuery{},
+			Extra: map[string]interface{}{
+				"Label":       "CreatedAt",
+				"ChineseName": "创建时间",
+			},
 		})
 		fields = append(fields, &Field{
 			Name:    "UpdatedAt",
 			Type:    "time.Time",
 			GormTag: "index;",
 			Comment: "Update time",
+			Query:   &FieldQuery{},
+			Extra: map[string]interface{}{
+				"Label":       "UpdatedAt",
+				"ChineseName": "更新时间",
+			},
 		})
 		a.Fields = fields
 	}

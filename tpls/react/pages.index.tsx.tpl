@@ -1,6 +1,7 @@
 {{- $name := .Name}}
 import { PageContainer } from '@ant-design/pro-components';
 import React, { useRef, useReducer } from 'react';
+import { useIntl } from 'umi';
 import type { ProColumns, ActionType } from '@ant-design/pro-components';
 import { ProTable{{if .Extra.IndexProComponentsImport}}, {{.Extra.IndexProComponentsImport}}{{end}} } from '@ant-design/pro-components';
 import { Space, message{{if .Extra.IndexAntdImport}}, {{.Extra.IndexAntdImport}}{{end}}} from 'antd';
@@ -26,6 +27,7 @@ interface State {
 }
 
 const {{$name}}: React.FC = () => {
+  const intl = useIntl();
   const actionRef = useRef<ActionType>();
   const addTitle = "{{.Extra.AddTitle}}";
   const editTitle = "{{.Extra.EditTitle}}";

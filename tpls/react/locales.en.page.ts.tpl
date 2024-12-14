@@ -9,5 +9,9 @@ export default {
     'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}': '{{.Name}}',
     'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}.placeholder': 'Please enter the {{lowerSpace .Name}}',
     'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}.required': '{{titleSpace .Name}} is required!',
+    {{- if eq .Name "Status"}}
+    'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}.enabled': 'Enabled',
+    'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}.disabled': 'Disabled',
+    {{- end}}
     {{- end}}
 };

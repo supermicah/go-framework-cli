@@ -10,5 +10,9 @@ export default {
     'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}': '{{.Extra.ChineseName}}',
     'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}.placeholder': '请输入{{.Extra.ChineseName}}',
     'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}.required': '{{.Extra.ChineseName}}是必填项!',
+    {{- if eq .Name "Status"}}
+    'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}.enabled': '启用',
+    'pages.{{with $parentName}}{{.}}.{{end}}{{$lowerCamelName}}.form.{{lowerUnderline .Name}}.disabled': '禁用',
+    {{- end}}
     {{- end}}
 };
